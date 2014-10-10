@@ -4,7 +4,7 @@
     height: 80px;
     position: absolute;
     left: 0;
-    transition: all 1s ease;
+    transition: all 0.5s ease;
 }
 
 .menu:hover
@@ -16,7 +16,7 @@
 {
     position: absolute;
     height: 100%;
-    transition: all 1s ease;
+    transition: all 0.5s ease;
 }
 
 .menu-wrap:hover
@@ -31,7 +31,7 @@
     float: left;
     overflow: hidden;
     cursor: pointer;
-    transition: all 1s ease;
+    transition: all 0.5s ease;
     border-radius: 40px;
     padding-right: 20px;
     padding-left: 20px;
