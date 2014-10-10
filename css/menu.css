@@ -1,0 +1,93 @@
+.menu
+{
+    width: 100%;
+    min-height: 80px;
+    height: 100%;
+    position: absolute;
+}
+
+.menu-wrap
+{
+    position: absolute;
+    height: 100%;
+    transition: all 1s ease;
+}
+
+.menu-wrap:hover
+{
+    left: 0px;
+    top: 0px;
+}
+
+.menu-item
+{
+    width: 40px;
+    height: 80px;
+    float: left;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 1s ease;
+    border-radius: 40px;
+    padding-right: 20px;
+    padding-left: 20px;
+    text-decoration: none;
+}
+
+.menu-item:hover
+{
+    width: 200px;
+    color: white;
+    background: rgba(0, 0, 0, 0.6);
+    padding-right: 20px;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+.menu-item > *
+{
+    height: 100%;
+}
+
+.menu-item .dot
+{
+    margin-top: 21px;
+}
+
+.menu-item .menu-item-text
+{
+    margin-top: 15px;
+}
+
+.menu-item-text
+{
+    font-size: 35px;
+    text-align: center;
+    margin-left: 15px;
+    font-family: 'Roboto Slab', serif;
+}
+
+.dot-wrap
+{
+    height: 100%;
+    width: 40px;
+    float: right;
+}
+
+.dot
+{
+    height: 30px;
+    width: 30px;
+    border-radius: 30px;
+    border: 5px solid #8D8D8D;
+    color: white;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.dot span
+{
+    margin-top: 6px;
+    font-size: 18px;
+    height: 100%
+    width: 100%;
+}
