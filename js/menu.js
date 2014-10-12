@@ -2,7 +2,6 @@
     var menu;
     var menu_wrap;
     var items;
-    var deviceXDPI;
 
     var windowEvents = [
         {name: 'focus', callback: resetMenu},
