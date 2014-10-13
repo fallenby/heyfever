@@ -1,21 +1,9 @@
-var dotMenu;
-
-(dotMenu = function(element_id) {
-    /*
-     * Public interface
-     */
-
-    dotMenu.add = addItem;
-    dotMenu.removeIndex = removeItemByIndex;
-
-
-    /*
-     * Private interface
-     */
-
+(dm = function(element_id) {
     var menu;
     var menu_wrap;
     var items;
+
+    this.add = addItem;
 
     var windowEvents = [
         {name: 'focus', callback: resetMenu},
@@ -103,8 +91,6 @@ var dotMenu;
         var menu_item = buildMenuItem(item);
         menu_wrap.appendChild(menu_item);
 
-        resetMenu();
-
         return menu_item;
     }
 
@@ -121,14 +107,17 @@ var dotMenu;
         return menu_item;
     }
 
+    function removeItem(item)
+    {
+        menu_wrap.removeChild(item.element);
+    }
+
     function removeItemByIndex(index)
     {
         if (index < 0 || index > (items.length - 1))
             return false;
 
         menu_wrap.removeChild(items[index].element);
-        items.splice(index, 1);
-        resetMenu();
 
         return true;
     }
