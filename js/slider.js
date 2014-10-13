@@ -15,7 +15,7 @@ var dotSlider;
 
     var element;
     var currentImage = 0;
-    var images;
+    var images = [];
     var active = false;
     var opacity = {
         current: 0.4,
@@ -29,12 +29,14 @@ var dotSlider;
 
     window.addEventListener('load', function() {
         element = document.getElementsByClassName('wrap')[0];
-        images = document.body.attributes['slides'].value.split(',');
+
+        var slides = document.getElementById('slides').getElementsByTagName('img');
+
+        for (var i = 0; i < slides.length; ++i)
+          images.push({uri: slides[i].attributes['src'].value, height: slides[i].height, width: slides[i].width});
 
         if (!images || images[0] == '')
             images = [];
-
-        document.body.style.backgroundSize = 'cover';
 
         setBackground(images[0]);
 
@@ -105,29 +107,34 @@ var dotSlider;
         setBackground(images[currentImage]);
     }
 
-    function setBackground(filename)
+    function setBackground(image)
     {
-        if (document.body.style.background == 'url(img/slides/' + filename + ') no-repeat 0 0')
-            return false;
-       
-        if (!filename)
+        if (!image)
+        {
             document.body.style.background = '';
-        else 
-            document.body.style.background = 'url(img/slides/' + filename + ') no-repeat 0 0';
+            return false;
+        }
+
+        if (document.body.style.background == 'url(' + image.uri + ') repeat 0 0')
+            return false;
+    
+        document.body.style.background = 'url(' + image.uri + ') repeat 0 0';
+        document.body.style.backgroundSize = (image.height > window.innerHeight || image.width > window.innerWidth) ? 'cover' : 'auto';
+        document.body.style.backgroundAttachment = 'fixed';
 
         return true;
     }
 
-    function addItem(uri)
+    function addItem(uri, height, width)
     {
         for (var i = 0; i < images.length; ++i)
-            if (images[i] == uri)
+            if (images[i].uri == uri)
                 return false;
 
-        images.push(uri);
+        images.push({uri: uri, height: height, width: width});
 
         if (images.length == 1)
-            setBackground(uri);
+            setBackground(images[images.length - 1]);
         else
             startSlide();
 
