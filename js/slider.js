@@ -1,6 +1,7 @@
-(function(images, slideDuration) {
+(function(slideDuration) {
   var element;
   var currentImage = 0;
+  var images;
   var opacity = {
     current: 0.4,
     min: 0.4,
@@ -12,10 +13,12 @@
 
   window.addEventListener('load', function() {
     element = document.getElementsByClassName('wrap')[0];
+    images = document.body.attributes['slides'].value.split(',');
 
     setBackground(images[0]);
 
-    setInterval(slideIn, 5000);
+    if (images.length > 1)
+        setInterval(slideIn, 5000);
   });
 
   function slideIn()
@@ -63,4 +66,4 @@
     document.body.style.background = 'url(img/slides/' + filename + ') no-repeat 0 0';
     document.body.style.backgroundSize = 'cover';
   }
-})(['1.jpg', '2.jpg'], 1000);
+})(1000);
