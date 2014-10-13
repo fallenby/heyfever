@@ -31,7 +31,7 @@ var dotSlider;
         element = document.getElementsByClassName('wrap')[0];
         images = document.body.attributes['slides'].value.split(',');
 
-        if (!images ||a images[0] == '')
+        if (!images || images[0] == '')
             images = [];
 
         document.body.style.backgroundSize = 'cover';
