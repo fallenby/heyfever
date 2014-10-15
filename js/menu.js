@@ -16,6 +16,7 @@ var dotMenu;
     var menu;
     var menu_wrap;
     var items;
+    var item_template = "{{#items}} <a href='{{uri}}' class='menu-item' target='_blank'> <div class='dot-wrap'> <div class='dot'> <span class='fa fa-{{icon}}'></span> </div> </div> <div class='menu-item-text'>{{text}}</div> </a> {{/items}}";
 
     var windowEvents = [
         {name: 'focus', callback: resetMenu},
@@ -35,7 +36,7 @@ var dotMenu;
             window.addEventListener(windowEvent.name, windowEvent.callback);
         });
 
-        resetMenu();
+        renderMenu();
 
         window.resizeStop.setThreshold(70);
         window.resizeStop.bind(resetMenu);
@@ -90,9 +91,30 @@ var dotMenu;
             item.text = item_elem.innerHTML;
             item.uri = item_elem.href;
             item.icon = item_elem.attributes['icon'].value;
-            item.element = addItem(item);
-            items.push(item);
+            addItem(item);
         }
+    }
+
+    function renderMenu()
+    {
+        menu_wrap.innerHTML = Mustache.render(item_template, {"items" : items});
+        updateEventBindings();
+        resetMenu();
+    }
+
+    function updateEventBindings()
+    {
+      var rendered_items = document.getElementsByClassName('menu-item');
+
+      for (var i = 0; i < rendered_items.length; ++i)
+      {
+        rendered_items[i].addEventListener('transitionend', itemTransitioned);
+      }
+    }
+
+    function itemTransitioned()
+    {
+      resetMenu();
     }
 
     function addItem(item)
@@ -100,25 +122,9 @@ var dotMenu;
         if (!menu || !menu_wrap)
             return false;
 
-        var menu_item = buildMenuItem(item);
-        menu_wrap.appendChild(menu_item);
+        items.push(item);
 
-        resetMenu();
-
-        return menu_item;
-    }
-
-    function buildMenuItem(item)
-    {
-        var menu_item = document.createElement('a');
-        menu_item.href = item.uri;
-        menu_item.target = '_blank';
-        menu_item.className = 'menu-item';
-        menu_item.innerHTML = '<div class="dot-wrap"><div class="dot"><span class="fa fa-' + item.icon + '"></span></div></div><div class="menu-item-text">' + item.text + '</div>';
-
-        menu_item.addEventListener('transitionend', resetMenu);
-        
-        return menu_item;
+        return true;
     }
 
     function removeItemByIndex(index)
@@ -126,9 +132,8 @@ var dotMenu;
         if (index < 0 || index > (items.length - 1))
             return false;
 
-        menu_wrap.removeChild(items[index].element);
         items.splice(index, 1);
-        resetMenu();
+        renderMenu();
 
         return true;
     }
