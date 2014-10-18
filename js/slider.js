@@ -25,7 +25,9 @@ var dotSlider;
 
     var slideInterval;
     var slideTimeout;
-    var slideSpeed = 40;
+    // Slide speed is determined by the slide duration divided by the number of slides.
+    // This is to have a decent frame duration for the provided slide duration.
+    var slideSpeed = slideDuration / (10 * (opacity.max - opacity.min));
 
     window.addEventListener('load', function() {
         element = document.getElementsByClassName('wrap')[0];
@@ -161,4 +163,4 @@ var dotSlider;
 
         return false;
     }
-})(1000, 5000);
+})(200, 5000);
